@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кредиты и деньги — ГосБанк</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ГосБанк</a>
+            <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
+            <label for="menu-checkbox" class="burger">
+                <span></span><span></span><span></span>
+            </label>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="cards.html">Карты</a>
+                <a href="credits.html">Кредиты</a>
+                <a href="overdraft.html">Овердрафт</a>
+                <a href="account.html" class="btn btn-primary" id="auth-nav-btn">Кабинет</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-8">
+        <div class="text-center mb-6">
+            <h1>Взять деньги сейчас</h1>
+            <p>Получите наличные или оформите овердрафт</p>
+        </div>
+
+        <div class="grid mb-6">
+            <div class="card text-center">
+                <h2>Овердрафт</h2>
+                <p>Подключите овердрафт к вашей карте и получите запас средств.</p>
+                <a href="overdraft.html" class="btn btn-outline btn-block">Рассчитать</a>
+            </div>
+            <div class="card text-center">
+                <h2>Кредит наличными</h2>
+                <p>До 5 000 000 000 000 ₽ на любые цели. Ставка от 4198698489987% годовых.</p>
+                <a href="#creditform" class="btn btn-primary btn-block">Оформить</a>
+            </div>
+            <div class="card text-center">
+                <h2>Микрозайм</h2>
+                <p>До 100 000 000 ₽ на срок до 1 дня.</p>
+                <a href="#creditform" class="btn btn-primary btn-block">Получить</a>
+            </div>
+        </div>
+
+        <div class="card" id="creditform" style="max-width: 600px; margin: 0 auto;">
+            <h2 class="text-center">Онлайн-заявка за 5 минут</h2>
+            <p class="text-center mb-4">Без справок и поручителей</p>
+            <form action="success.html">
+                <div class="form-group">
+                    <label>Тип продукта</label>
+                    <select class="form-select">
+                        <option>Кредит наличными</option>
+                        <option>Микрозайм</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Желаемая сумма (₽)</label>
+                    <input type="number" class="form-input" placeholder="100 000 000 000" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Получить деньги</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">2026 ПАО «Государственный Банк». Все права защищены.</div>
+    </footer>
+</body>
+</html>

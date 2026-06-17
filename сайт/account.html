@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — ГосБанк</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .notification {
+            display: none;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: var(--radius);
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+            font-weight: 500;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        .checkbox-group label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            cursor: pointer;
+        }
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .form-group .error-message {
+            display: block;
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ГосБанк</a>
+            <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
+            <label for="menu-checkbox" class="burger">
+                <span></span><span></span><span></span>
+            </label>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="cards.html">Карты</a>
+                <a href="credits.html">Кредиты</a>
+                <a href="overdraft.html">Овердрафт</a>
+                <a href="account.html" class="btn btn-primary">Кабинет</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-8">
+        <div id="registration-notification" class="notification">
+            Заявка на добавление нового администратора успешно создана и будет проверена старшим администратором.
+        </div>
+
+        <h1 class="mb-2" id="welcome-heading">Личный кабинет</h1>
+        <p class="mb-6" id="welcome-subtext">Управляйте своими данными в системе</p>
+
+        <!-- Блок для администратора: регистрация нового админа -->
+        <div class="card mb-6" id="admin-action-block" style="display: none; border: 1px solid var(--primary);">
+            <h2 class="mb-4">Регистрация нового администратора</h2>
+            <p class="mb-4" style="color: var(--gray);">Заполните форму ниже для добавления новой учетной записи сотрудника.</p>
+            
+            <form id="admin-registration-form" onsubmit="registerNewAdmin(event)" style="max-width: 500px;">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="new-admin-email">Email адрес</label>
+                    <input type="email" id="new-admin-email" class="form-input" placeholder="name@example.com" required>
+                </div>
+
+                <!-- Возраст -->
+                <div class="form-group">
+                    <label for="new-admin-age">Возраст</label>
+                    <input type="number" id="new-admin-age" class="form-input" placeholder="18+" min="18" required>
+                </div>
+
+                <!-- Пол -->
+                <div class="form-group">
+                    <label for="new-admin-gender">Пол</label>
+                    <select id="new-admin-gender" class="form-input" required>
+                        <option value="">Выберите...</option>
+                        <option value="male">Мужской</option>
+                        <option value="female">Женский</option>
+                        <option value="other">Другой</option>
+                    </select>
+                </div>
+
+                <!-- Город -->
+                <div class="form-group">
+                    <label for="new-admin-city">Город проживания</label>
+                    <input type="text" id="new-admin-city" class="form-input" placeholder="Введите ваш город" required>
+                </div>
+
+                <!-- Пароль -->
+                <div class="form-group">
+                    <label for="new-admin-password">Пароль (только латиница и цифры)</label>
+                    <input type="password" id="new-admin-password" class="form-input" 
+                           pattern="[A-Za-z0-9]+" 
+                           title="Только латинские буквы и цифры"
+                           placeholder="Только латиница и цифры" required>
+                    <div class="error-message" id="password-error" style="display: none;">Пароль должен содержать только латинские буквы и цифры.</div>
+                </div>
+
+                <!-- Повтор пароля -->
+                <div class="form-group">
+                    <label for="new-admin-password-confirm">Повторите пароль</label>
+                    <input type="password" id="new-admin-password-confirm" class="form-input" placeholder="Повторите пароль" required>
+                    <div class="error-message" id="password-confirm-error" style="display: none;">Пароли не совпадают.</div>
+                </div>
+
+                <!-- Согласие -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="new-admin-agreement" required>
+                    <label for="new-admin-agreement">Я согласен на обработку персональных данных и принимаю условия использования платформы</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Зарегистрировать администратора</button>
+            </form>
+        </div>
+
+        <!-- Интерфейс для обычного пользователя -->
+        <div id="user-finance-interface" style="display: none;">
+            <div class="card balance-card mb-6">
+                <p style="margin-bottom: 0.5rem;">Основной счёт</p>
+                <h2>1 000 000 ₽</h2>
+                <div class="balance-actions">
+                    <a href="#" class="btn">Пополнить</a>
+                    <a href="#" class="btn">Перевести</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="mb-4">Последние операции</h3>
+                <div class="transaction-list">
+                    <div class="transaction-item">
+                        <div>
+                            <div class="transaction-name">Супермаркет «Продукты»</div>
+                            <div class="transaction-date">Сегодня, 14:20</div>
+                        </div>
+                        <div class="transaction-amount amount-minus">- 1 250 ₽</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div>
+                            <div class="transaction-name">Перевод от Александра М.</div>
+                            <div class="transaction-date">Вчера, 18:45</div>
+                        </div>
+                        <div class="transaction-amount amount-plus">+ 5 000 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; text-align: center;">
+            <button onclick="logout()" class="btn btn-outline">Выйти из системы</button>
+        </div>
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">2026 ПАО «Государственный Банк». Все права защищены.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Защита: если не авторизован, перенаправляем на login
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const userRole = localStorage.getItem('userRole');
+
+            const adminActionBlock = document.getElementById('admin-action-block');
+            const userFinanceInterface = document.getElementById('user-finance-interface');
+            const welcomeHeading = document.getElementById('welcome-heading');
+            const welcomeSubtext = document.getElementById('welcome-subtext');
+
+            if (userRole === 'admin') {
+                welcomeHeading.textContent = 'Панель администратора';
+                welcomeSubtext.textContent = 'Управление внутренними учетными записями и безопасностью';
+                adminActionBlock.style.display = 'block';
+                userFinanceInterface.style.display = 'none';
+            } else {
+                welcomeHeading.textContent = 'Личный кабинет';
+                welcomeSubtext.textContent = 'Управляйте своими финансами в одном месте';
+                adminActionBlock.style.display = 'none';
+                userFinanceInterface.style.display = 'block';
+            }
+        });
+
+        function registerNewAdmin(event) {
+            event.preventDefault();
+
+            // Получаем поля
+            const email = document.getElementById('new-admin-email');
+            const age = document.getElementById('new-admin-age');
+            const gender = document.getElementById('new-admin-gender');
+            const city = document.getElementById('new-admin-city');
+            const password = document.getElementById('new-admin-password');
+            const passwordConfirm = document.getElementById('new-admin-password-confirm');
+            const agreement = document.getElementById('new-admin-agreement');
+
+            // Валидация пароля (латиница и цифры)
+            const passwordRegex = /^[A-Za-z0-9]+$/;
+            const passwordError = document.getElementById('password-error');
+            const confirmError = document.getElementById('password-confirm-error');
+
+            let valid = true;
+
+            if (!passwordRegex.test(password.value)) {
+                passwordError.style.display = 'block';
+                valid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            if (password.value !== passwordConfirm.value) {
+                confirmError.style.display = 'block';
+                valid = false;
+            } else {
+                confirmError.style.display = 'none';
+            }
+
+            if (!valid) {
+                return; // не отправляем, если есть ошибки
+            }
+
+            // Если всё ок, сбрасываем форму
+            document.getElementById('admin-registration-form').reset();
+            // Скрываем сообщения об ошибках (они скроются при reset, но лучше явно)
+            passwordError.style.display = 'none';
+            confirmError.style.display = 'none';
+
+            // Показываем уведомление
+            const notification = document.getElementById('registration-notification');
+            notification.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

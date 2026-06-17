@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГосБанк — Главная</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ГосБанк</a>
+            <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
+            <label for="menu-checkbox" class="burger">
+                <span></span><span></span><span></span>
+            </label>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="cards.html">Карты</a>
+                <a href="credits.html">Кредиты</a>
+                <a href="overdraft.html">Овердрафт</a>
+                <a href="account.html" class="btn btn-primary" id="auth-nav-btn">Кабинет</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-8">
+        <div class="card info-block text-center" id="unauthorized-block" style="display: none;">
+            <h2>Вход в интернет-банк</h2>
+            <p class="mb-4">Для получения доступа к услугам банка, картам, кредитам и личному кабинету необходимо авторизоваться в системе.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="login.html" class="btn btn-primary">Войти через Госуслуги</a>
+                <a href="login.html?mode=admin" class="btn btn-outline">Вход для администратора</a>
+            </div>
+        </div>
+
+        <div id="authorized-content" style="display: none;">
+            <div class="text-center mb-6">
+                <h1>Финансы под контролем государства</h1>
+                <p>Надежные решения для сохранения и приумножения вашего капитала</p>
+            </div>
+
+            <div class="card info-block text-center">
+                <h2>Добро пожаловать в интернет-банк!</h2>
+                <p class="mb-4">Вы успешно авторизованы в системе ГосБанк.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <a href="account.html" class="btn btn-primary">Перейти в Личный кабинет</a>
+                    <button onclick="logout()" class="btn btn-outline">Выйти из учетной записи</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <p>2026 ПАО «Государственный Банк». Лицензия ЦБ РФ № 1481. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const unauthorizedBlock = document.getElementById('unauthorized-block');
+            const authorizedContent = document.getElementById('authorized-content');
+
+            if (isLoggedIn === 'true') {
+                unauthorizedBlock.style.display = 'none';
+                authorizedContent.style.display = 'block';
+            } else {
+                unauthorizedBlock.style.display = 'block';
+                authorizedContent.style.display = 'none';
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

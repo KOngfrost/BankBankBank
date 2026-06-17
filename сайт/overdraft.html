@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Овердрафт — ГосБанк</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ГосБанк</a>
+            <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
+            <label for="menu-checkbox" class="burger">
+                <span></span><span></span><span></span>
+            </label>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="cards.html">Карты</a>
+                <a href="credits.html">Кредиты</a>
+                <a href="overdraft.html">Овердрафт</a>
+                <a href="account.html" class="btn btn-primary" id="auth-nav-btn">Кабинет</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-8" style="max-width: 600px;">
+        <div class="card">
+            <h1 class="text-center">Калькулятор овердрафта</h1>
+            <p class="text-center mb-6">Примерные условия. Для точного расчёта заполните форму ниже.</p>
+            
+            <form action="success.html">
+                <div class="form-group">
+                    <label>Сумма овердрафта (10 000 – 1 000 000 000 000 ₽)</label>
+                    <input type="number" class="form-input" value="100000" min="10000" max="1000000000000">
+                </div>
+                <div class="form-group">
+                    <label>Срок погашения (дней, 1 – 2)</label>
+                    <input type="number" class="form-input" value="1" min="1" max="2">
+                </div>
+                <div class="form-group">
+                    <label>Процентная ставка (годовых)</label>
+                    <input type="text" class="form-input" value="786587657820%" readonly style="background: #f1f5f9;">
+                </div>
+                
+                <div class="info-block text-center">
+                    <p style="font-weight: 600; color: var(--primary-dark);">Ориентировочный платёж: ~9 168 ₽/мес</p>
+                    <p style="margin: 0.25rem 0 0 0; font-size: 0.75rem;">При сумме 100 000 ₽ на 12 месяцев под 18% годовых</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mb-4">Подать заявку</button>
+                <a href="index.html" class="btn btn-outline btn-block">На главную</a>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">2026 ПАО «Государственный Банк»</div>
+    </footer>
+</body>
+</html>

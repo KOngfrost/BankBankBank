@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — ГосБанк</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+        .admin-toggle-btn:hover {
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ГосБанк</a>
+        </div>
+    </header>
+
+    <main class="container py-8" style="max-width: 400px;">
+        <div class="card text-center" id="user-login-section">
+            <h1>Вход в интернет-банк</h1>
+            <p class="mb-6">Авторизация через Единую систему идентификации и аутентификации (ЕСИА)</p>
+            
+            <button onclick="loginViaGosusingi()" class="btn btn-primary btn-block mb-4" style="width: 100%;">Войти через Госуслуги</button>
+            
+            <p style="font-size: 0.75rem;" class="mb-4">
+                Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
+            </p>
+            
+            <button class="admin-toggle-btn" onclick="toggleAuthForm('admin')">Вход для администратора</button>
+        </div>
+
+        <div class="card" id="admin-login-section" style="display: none;">
+            <h1 class="text-center">Вход для администратора</h1>
+            <p class="text-center mb-6">Панель управления доступом</p>
+            
+            <form onsubmit="loginAsAdmin(event)">
+                <div class="form-group mb-4">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Логин администратора</label>
+                    <input type="text" id="admin-login" class="form-input" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);" required>
+                </div>
+                <div class="form-group mb-4">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Пароль</label>
+                    <input type="password" id="admin-password" class="form-input" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mb-4" style="width: 100%;">Войти в панель</button>
+            </form>
+            
+            <div class="text-center">
+                <button class="admin-toggle-btn" onclick="toggleAuthForm('user')">Назад к входу через Госуслуги</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">2026 ПАО «Государственный Банк»</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mode') === 'admin') {
+                toggleAuthForm('admin');
+            }
+        });
+
+        function toggleAuthForm(role) {
+            const userSection = document.getElementById('user-login-section');
+            const adminSection = document.getElementById('admin-login-section');
+            if (role === 'admin') {
+                userSection.style.display = 'none';
+                adminSection.style.display = 'block';
+            } else {
+                userSection.style.display = 'block';
+                adminSection.style.display = 'none';
+            }
+        }
+
+        function loginViaGosusingi() {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userRole', 'user');
+            window.location.href = 'account.html';
+        }
+
+        function loginAsAdmin(event) {
+            event.preventDefault();
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userRole', 'admin');
+            window.location.href = 'account.html';
+        }
+    </script>
+</body>
+</html>

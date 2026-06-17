@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карты — ГосБанк</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ГосБанк</a>
+            <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
+            <label for="menu-checkbox" class="burger">
+                <span></span><span></span><span></span>
+            </label>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="cards.html">Карты</a>
+                <a href="credits.html">Кредиты</a>
+                <a href="overdraft.html">Овердрафт</a>
+                <a href="account.html" class="btn btn-primary" id="auth-nav-btn">Кабинет</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-8">
+        <h1 class="text-center">Оформить карту</h1>
+        <p class="text-center mb-6">Выберите подходящий продукт и оформите заявку онлайн за 5 минут</p>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Дебетовая: ГосБанк Стандарт</h2>
+                <p>Бесплатное обслуживание при остатке от 10 000 ₽. Кешбэк до 0.0001% на всё.</p>
+                <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; color: var(--gray);">
+                    <li>Бесплатное обслуживание</li>
+                    <li>Снятие без комиссии в любых банкоматах</li>
+                    <li>Переводы до 100 000 ₽ без комиссии</li>
+                </ul>
+                <a href="#form" class="btn btn-primary btn-block">Оформить онлайн</a>
+            </div>
+
+            <div class="card">
+                <h2>Кредитная: ГосБанк Кредитная</h2>
+                <p>До 1 дня без процентов.<br> Лимит до 1 000 000 000 ₽. Ставка от 78637863786% годовых.</p>
+                <ul style="margin-bottom: 1.5rem; padding-left: 1.2rem; color: var(--gray);">
+                    <li>Льготный период 120 дней</li>
+                    <li>Кешбэк на покупки до 30%</li>
+                    <li>Бесплатная доставка карты</li>
+                </ul>
+                <a href="#form" class="btn btn-primary btn-block">Оформить онлайн</a>
+            </div>
+        </div>
+
+        <div class="card" id="form" style="margin-top: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <h2 class="text-center">Онлайн-заявка</h2>
+            <p class="text-center">Заполните форму — мы рассмотрим заявку в течение дня</p>
+            <form action="success.html">
+                <div class="form-group">
+                    <label>Выберите тип карты</label>
+                    <select class="form-select">
+                        <option>Дебетовая ГосБанк Стандарт</option>
+                        <option>Кредитная ГосБанк Кредитная</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">2026 ПАО «Государственный Банк»</div>
+    </footer>
+</body>
+</html>
