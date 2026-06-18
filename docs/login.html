@@ -93,11 +93,18 @@
             window.location.href = 'account.html';
         }
 
+        // Изменённая функция с проверкой логина и пароля
         function loginAsAdmin(event) {
             event.preventDefault();
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userRole', 'admin');
-            window.location.href = 'account.html';
+            var login = document.getElementById('admin-login').value;
+            var password = document.getElementById('admin-password').value;
+            if (login === 'login' && password === 'qwerty') {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userRole', 'admin');
+                window.location.href = 'account.html';
+            } else {
+                alert('Неверный логин или пароль. Попробуйте снова.');
+            }
         }
     </script>
 </body>

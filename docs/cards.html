@@ -71,5 +71,27 @@
     <footer class="footer text-center">
         <div class="container">2026 ПАО «Государственный Банк»</div>
     </footer>
+
+    <!-- Добавлен скрипт для управления доступом гостей -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            // Ссылка "Кабинет"
+            const navBtn = document.getElementById('auth-nav-btn');
+            if (navBtn) {
+                navBtn.href = isLoggedIn ? 'account.html' : 'login.html';
+            }
+            // Формы, ведущие на success.html
+            const forms = document.querySelectorAll('form[action="success.html"]');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    if (!isLoggedIn) {
+                        e.preventDefault();
+                        window.location.href = 'register.html';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

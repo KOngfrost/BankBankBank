@@ -70,6 +70,12 @@
                 unauthorizedBlock.style.display = 'block';
                 authorizedContent.style.display = 'none';
             }
+
+            // Корректировка ссылки "Кабинет"
+            const navBtn = document.getElementById('auth-nav-btn');
+            if (navBtn) {
+                navBtn.href = isLoggedIn === 'true' ? 'account.html' : 'login.html';
+            }
         });
 
         function logout() {
